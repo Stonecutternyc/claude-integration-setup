@@ -409,8 +409,10 @@ print_ok "sc-sql server files and dependencies ready"
 # --- Merge MCP configs into settings.json ---
 print_info "Merging MCP server configs into settings.json..."
 
-# Source env vars for the merge
+# Re-source env vars (may have been written fresh in Phase 2)
+set -a
 source "$ENV_FILE" 2>/dev/null || true
+set +a
 
 node -e "
 const fs = require('fs');
