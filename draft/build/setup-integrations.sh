@@ -169,7 +169,6 @@ set_env_key "CLICKUP_TEAM_ID" "ClickUp Team ID"
 
 echo ""
 echo -e "${YELLOW}── Personal Keys ──${NC}"
-set_env_key "ANTHROPIC_API_KEY" "Anthropic API Key (from console.anthropic.com)"
 set_env_key "SQL_SERVER" "SQL Server address" "152.53.146.201"
 set_env_key "SQL_DATABASE" "SQL Database name" "stonecutter"
 set_env_key "SQL_USERNAME" "SQL Username (e.g. yourname@stonecutter.nyc)"
