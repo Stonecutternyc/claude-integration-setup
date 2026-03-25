@@ -1,8 +1,8 @@
-# Stonecutter Master Integration Setup — Windows (PowerShell)
+# Stonecutter Master Integration Setup - Windows (PowerShell)
 # Gets a team member fully connected to all Stonecutter tools via Claude Code.
 #
 # Usage: powershell -ExecutionPolicy Bypass -File setup-integrations.ps1
-# Safe to re-run — checks before installing, merges instead of overwrites.
+# Safe to re-run - checks before installing, merges instead of overwrites.
 
 $ErrorActionPreference = "Stop"
 
@@ -124,7 +124,6 @@ Set-EnvKey "CLICKUP_TEAM_ID" "ClickUp Team ID"
 
 Write-Host ""
 Write-Host "-- Personal Keys --" -ForegroundColor Yellow
-Set-EnvKey "ANTHROPIC_API_KEY" "Anthropic API Key (from console.anthropic.com)"
 Set-EnvKey "SQL_SERVER" "SQL Server address" "152.53.146.201"
 Set-EnvKey "SQL_DATABASE" "SQL Database name" "stonecutter"
 Set-EnvKey "SQL_USERNAME" "SQL Username (e.g. yourname@stonecutter.nyc)"
@@ -209,9 +208,7 @@ if (Test-Path "$gwsConfigDir\client_secret.json") {
 
     if ($gwsClientId -and $gwsClientSecret) {
         New-Item -ItemType Directory -Force -Path $gwsConfigDir | Out-Null
-        $gwsJson = @"
-{"installed":{"client_id":"$gwsClientId","project_id":"stonecutter-gws-cli","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"$gwsClientSecret","redirect_uris":["http://localhost"]}}
-"@
+        $gwsJson = "{`"installed`":{`"client_id`":`"$gwsClientId`",`"project_id`":`"stonecutter-gws-cli`",`"auth_uri`":`"https://accounts.google.com/o/oauth2/auth`",`"token_uri`":`"https://oauth2.googleapis.com/token`",`"auth_provider_x509_cert_url`":`"https://www.googleapis.com/oauth2/v1/certs`",`"client_secret`":`"$gwsClientSecret`",`"redirect_uris`":[`"http://localhost`"]}}"
         $gwsJson | Set-Content "$gwsConfigDir\client_secret.json" -Encoding UTF8
         # Also copy to AppData location (Windows sometimes looks there)
         New-Item -ItemType Directory -Force -Path $gwsAppDataDir | Out-Null
@@ -255,7 +252,7 @@ $scSqlDir = "$mcpBase\sc-sql"
 New-Item -ItemType Directory -Force -Path $scSqlDir | Out-Null
 
 if (-not (Test-Path "$scSqlDir\package.json")) {
-    @'
+$pkgJson = @'
 {
   "name": "sc-sql",
   "version": "1.0.0",
@@ -265,7 +262,8 @@ if (-not (Test-Path "$scSqlDir\package.json")) {
     "mssql": "^11.0.0"
   }
 }
-'@ | Set-Content "$scSqlDir\package.json" -Encoding UTF8
+'@
+    $pkgJson | Set-Content "$scSqlDir\package.json" -Encoding UTF8
 }
 
 # Write server.js (same as Mac version)
