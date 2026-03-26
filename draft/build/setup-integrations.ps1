@@ -221,8 +221,15 @@ if (Test-Path "$gwsConfigDir\client_secret.json") {
 
 # Authenticate gws
 if (Get-Command gws -ErrorAction SilentlyContinue) {
-    $gwsTest = gws drive files list 2>&1
-    if ($LASTEXITCODE -eq 0) {
+    $gwsAuthed = $false
+    try {
+        $gwsTest = gws drive files list 2>&1
+        if ($LASTEXITCODE -eq 0) { $gwsAuthed = $true }
+    } catch {
+        $gwsAuthed = $false
+    }
+
+    if ($gwsAuthed) {
         Write-Ok "gws already authenticated"
     } else {
         Write-Info "Opening browser for Google Workspace authentication..."
@@ -442,9 +449,13 @@ if ((Get-Command gh -ErrorAction SilentlyContinue) -and ((gh auth status 2>&1) -
 
 # gws
 if (Get-Command gws -ErrorAction SilentlyContinue) {
-    $gwsTest = gws drive files list 2>&1
-    if ($LASTEXITCODE -eq 0) { Write-Ok "Google Workspace CLI - authenticated"; $pass++ }
-    else { Write-Fail "Google Workspace CLI - not authenticated"; $fail++ }
+    $gwsOk = $false
+    try {
+        $gwsTest = gws drive files list 2>&1
+        if ($LASTEXITCODE -eq 0) { $gwsOk = $true }
+    } catch { }
+    if ($gwsOk) { Write-Ok "Google Workspace CLI - authenticated"; $pass++ }
+    else { Write-Fail "Google Workspace CLI - not authenticated (run 'gws auth login')"; $fail++ }
 } else {
     Write-Fail "Google Workspace CLI - not installed"
     $fail++

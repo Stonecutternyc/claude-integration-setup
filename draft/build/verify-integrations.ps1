@@ -67,8 +67,12 @@ if (Get-Command gws -ErrorAction SilentlyContinue) {
     Write-Ok "gws installed"
     $pass++
 
-    $gwsTest = gws drive files list 2>&1
-    if ($LASTEXITCODE -eq 0) { Write-Ok "gws authenticated (Drive access confirmed)"; $pass++ }
+    $gwsOk = $false
+    try {
+        $gwsTest = gws drive files list 2>&1
+        if ($LASTEXITCODE -eq 0) { $gwsOk = $true }
+    } catch { }
+    if ($gwsOk) { Write-Ok "gws authenticated (Drive access confirmed)"; $pass++ }
     else { Write-Fail "gws not authenticated - run: gws auth login"; $fail++ }
 } else {
     Write-Fail "gws not installed - run: npm install -g @googleworkspace/cli@latest"
