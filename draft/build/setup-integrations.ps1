@@ -124,7 +124,7 @@ Set-EnvKey "CLICKUP_TEAM_ID" "ClickUp Team ID"
 
 Write-Host ""
 Write-Host "-- Personal Keys --" -ForegroundColor Yellow
-Set-EnvKey "SQL_SERVER" "SQL Server address" "152.53.146.201"
+Set-EnvKey "SQL_SERVER" "SQL Server address" "db.stonecutter.nyc"
 Set-EnvKey "SQL_DATABASE" "SQL Database name" "stonecutter"
 Set-EnvKey "SQL_USERNAME" "SQL Username (e.g. yourname@stonecutter.nyc)"
 Set-EnvKey "SQL_PASSWORD" "SQL Password"
@@ -359,7 +359,7 @@ $sqlPass = [Environment]::GetEnvironmentVariable("SQL_PASSWORD", "Process")
 $sqlServer = [Environment]::GetEnvironmentVariable("SQL_SERVER", "Process")
 $sqlDb = [Environment]::GetEnvironmentVariable("SQL_DATABASE", "Process")
 
-if (-not $sqlServer) { $sqlServer = "152.53.146.201" }
+if (-not $sqlServer) { $sqlServer = "db.stonecutter.nyc" }
 if (-not $sqlDb) { $sqlDb = "stonecutter" }
 
 # Read existing settings

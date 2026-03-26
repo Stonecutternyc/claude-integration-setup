@@ -111,7 +111,7 @@ if [ -n "$SQL_USERNAME" ] && [ -n "$SQL_PASSWORD" ] && [ -f "$HOME/.claude/mcp-s
   SQL_RESULT=$(node -e "
     const sql = require('$HOME/.claude/mcp-servers/sc-sql/node_modules/mssql');
     sql.connect({
-      server: '${SQL_SERVER:-152.53.146.201}',
+      server: '${SQL_SERVER:-db.stonecutter.nyc}',
       database: '${SQL_DATABASE:-stonecutter}',
       user: '$SQL_USERNAME',
       password: '$SQL_PASSWORD',

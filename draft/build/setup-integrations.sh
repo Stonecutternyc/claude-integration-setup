@@ -169,7 +169,7 @@ set_env_key "CLICKUP_TEAM_ID" "ClickUp Team ID"
 
 echo ""
 echo -e "${YELLOW}── Personal Keys ──${NC}"
-set_env_key "SQL_SERVER" "SQL Server address" "152.53.146.201"
+set_env_key "SQL_SERVER" "SQL Server address" "db.stonecutter.nyc"
 set_env_key "SQL_DATABASE" "SQL Database name" "stonecutter"
 set_env_key "SQL_USERNAME" "SQL Username (e.g. yourname@stonecutter.nyc)"
 set_env_key "SQL_PASSWORD" "SQL Password"
@@ -427,7 +427,7 @@ if (!settings.mcpServers) settings.mcpServers = {};
 // sc-sql — uses env vars from ~/.env
 const sqlUser = process.env.SQL_USERNAME || '';
 const sqlPass = process.env.SQL_PASSWORD || '';
-const sqlServer = process.env.SQL_SERVER || '152.53.146.201';
+const sqlServer = process.env.SQL_SERVER || 'db.stonecutter.nyc';
 const sqlDb = process.env.SQL_DATABASE || 'stonecutter';
 
 if (sqlUser && sqlPass) {
